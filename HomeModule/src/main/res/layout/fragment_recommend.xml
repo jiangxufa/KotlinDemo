@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MatchMatch.Vertical">
+
+    <LinearLayout style="@style/MatchWrap.Horizontal">
+
+        <TextView
+            style="@style/WrapWrap"
+            android:padding="@dimen/dp_10"
+            android:text="综合"
+            android:textColor="@color/font_gray"
+            android:textSize="@dimen/sp_14" />
+
+        <View style="@style/WeightMatch" />
+
+        <ImageView
+            android:layout_width="@dimen/dp_22"
+            android:layout_height="@dimen/dp_22"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/dp_10"
+            android:src="@mipmap/ic_index_rank"
+            android:tint="@color/pink" />
+
+        <ImageView
+            android:layout_width="@dimen/dp_22"
+            android:layout_height="@dimen/dp_22"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/dp_10"
+            android:src="@mipmap/ic_index_attention"
+            android:tint="@color/pink" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_bg" />
+
+    <FrameLayout style="@style/MatchMatch"
+        android:layout_marginLeft="@dimen/dp_10">
+
+        <include layout="@layout/common_layout_error" />
+
+        <include layout="@layout/home_refresh_recycler" />
+    </FrameLayout>
+
+</LinearLayout>
