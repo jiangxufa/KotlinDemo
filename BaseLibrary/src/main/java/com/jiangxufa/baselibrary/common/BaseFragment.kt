@@ -6,8 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jiangxufa.baselibrary.injection.component.DaggerFragmentComponent
-import com.jiangxufa.baselibrary.injection.component.FragmentComponent
+import com.jiangxufa.baselibrary.injection.component.ActivityComponent
+import com.jiangxufa.baselibrary.injection.component.DaggerActivityComponent
+import com.jiangxufa.baselibrary.injection.module.ActivityModule
 import com.jiangxufa.baselibrary.injection.module.LifecycleProviderModule
 import com.trello.rxlifecycle2.components.support.RxFragment
 import javax.inject.Inject
@@ -39,9 +40,15 @@ abstract class BaseFragment<V : BaseView, T : BaseIPresenter<V>> : RxFragment(),
     private val lifecycleProviderModule: LifecycleProviderModule
         get() = LifecycleProviderModule(this)
 
-    protected val fragmentComponent:FragmentComponent
-        get() = DaggerFragmentComponent.builder()
+//    protected val fragmentComponent:FragmentComponent
+//        get() = DaggerFragmentComponent.builder()
+//                .appComponent((mActivity.application as BaseApplication).appComponent)
+//                .lifecycleProviderModule(lifecycleProviderModule).build()
+
+    protected val activityComponent: ActivityComponent
+        get() = DaggerActivityComponent.builder()
                 .appComponent((mActivity.application as BaseApplication).appComponent)
+                .activityModule(ActivityModule(mActivity))
                 .lifecycleProviderModule(lifecycleProviderModule).build()
 
     override fun onAttach(context: Context?) {

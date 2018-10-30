@@ -75,7 +75,8 @@ class LiveDataFragment : BaseRefreshFragment<LiveDataContract.View, LiveDataPres
 
     override fun initInject() {
         DaggerHomeComponent.builder()
-                .fragmentComponent(fragmentComponent)
+//                .fragmentComponent(fragmentComponent)
+                .activityComponent(activityComponent)
                 .homeModule(HomeModule())
                 .build().inject(this)
         mPresenter?.attachView(this)

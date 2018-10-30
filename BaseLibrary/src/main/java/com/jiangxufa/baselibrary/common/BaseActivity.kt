@@ -41,6 +41,7 @@ public abstract class BaseActivity<T : BaseIPresenter<*>> :
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
         initStatusBar()
+        initToolBar()
         initInject()
 
         initView()
@@ -48,6 +49,7 @@ public abstract class BaseActivity<T : BaseIPresenter<*>> :
 
         loadData()
     }
+
 
     abstract fun initView()
 
@@ -57,6 +59,9 @@ public abstract class BaseActivity<T : BaseIPresenter<*>> :
      * 初始化状态栏
      */
     open fun initStatusBar() {}
+
+    open fun initToolBar() {
+    }
 
     /**
      * 获取布局id

@@ -62,7 +62,8 @@ class DynamicFragment : BaseRefreshFragment<DynamicContract.View, DynamicPresent
     override fun initInject() {
         @Suppress("DEPRECATION")
         DaggerHomeComponent.builder()
-                .fragmentComponent(fragmentComponent)
+//                .fragmentComponent(fragmentComponent)
+                .activityComponent(activityComponent)
                 .homeModule(HomeModule())
                 .build().inject(this)
         mPresenter?.attachView(this)

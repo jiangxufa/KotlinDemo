@@ -65,7 +65,8 @@ class RegionFragment : BaseRefreshFragment<RegionContract.View, RegionPresenter>
     override fun initInject() {
         super.initInject()
         DaggerHomeComponent.builder()
-                .fragmentComponent(fragmentComponent)
+//                .fragmentComponent(fragmentComponent)
+                .activityComponent(activityComponent)
                 .homeModule(HomeModule())
                 .build().inject(this)
         mPresenter?.attachView(this)

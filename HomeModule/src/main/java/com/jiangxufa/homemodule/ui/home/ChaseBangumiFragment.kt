@@ -1,5 +1,6 @@
 package com.jiangxufa.homemodule.ui.home
 
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -20,6 +21,7 @@ import com.jiangxufa.baselibrary.common.BasePresenter
 import com.jiangxufa.baselibrary.common.BaseRefreshFragment
 import com.jiangxufa.baselibrary.common.BaseView
 import com.jiangxufa.baselibrary.ext.excute
+import com.jiangxufa.baselibrary.ext.onClick
 import com.jiangxufa.baselibrary.rx.SampleSubscriber
 import com.jiangxufa.baselibrary.utils.AppUtils
 import com.jiangxufa.homemodule.R
@@ -28,6 +30,7 @@ import com.jiangxufa.homemodule.injection.component.DaggerHomeComponent
 import com.jiangxufa.homemodule.injection.module.HomeModule
 import com.jiangxufa.homemodule.model.chase.ChaseBangumi
 import com.jiangxufa.homemodule.model.chase.RecommendBangumi
+import com.jiangxufa.homemodule.ui.bangumi.BangumiDetailActivity
 import com.jiangxufa.homemodule.utils.JsonUtils
 import com.jiangxufa.homemodule.utils.NumberUtils
 import io.reactivex.Observable
@@ -63,7 +66,8 @@ class ChaseBangumiFragment : BaseRefreshFragment<ChaseBangumiContract.View, Chas
     override fun initInject() {
         super.initInject()
         DaggerHomeComponent.builder()
-                .fragmentComponent(fragmentComponent)
+//                .fragmentComponent(fragmentComponent)
+                .activityComponent(activityComponent)
                 .homeModule(HomeModule())
                 .build().inject(this)
         mPresenter?.attachView(this)
@@ -80,16 +84,16 @@ class ChaseBangumiFragment : BaseRefreshFragment<ChaseBangumiContract.View, Chas
         }
     }
 
-    lateinit var virtualLayoutManager: VirtualLayoutManager
-    lateinit var delegateAdapter: DelegateAdapter
+    private lateinit var virtualLayoutManager: VirtualLayoutManager
+    private lateinit var delegateAdapter: DelegateAdapter
 
-    lateinit var mimeAdapter: CommonAdapter<ChaseBangumi.FollowsBean>
-    lateinit var jpAdapter: CommonAdapter<RecommendBangumi.RecommendJpBean.RecommendBeanX>
-    lateinit var jpFooter: CommonAdapter<RecommendBangumi.RecommendJpBean.FootBeanX>
-    lateinit var cnAdapter: CommonAdapter<RecommendBangumi.RecommendCnBean.RecommendBean>
-    lateinit var cnFooter: CommonAdapter<RecommendBangumi.RecommendCnBean.FootBean>
+    private lateinit var mimeAdapter: CommonAdapter<ChaseBangumi.FollowsBean>
+    private lateinit var jpAdapter: CommonAdapter<RecommendBangumi.RecommendJpBean.RecommendBeanX>
+    private lateinit var jpFooter: CommonAdapter<RecommendBangumi.RecommendJpBean.FootBeanX>
+    private lateinit var cnAdapter: CommonAdapter<RecommendBangumi.RecommendCnBean.RecommendBean>
+    private lateinit var cnFooter: CommonAdapter<RecommendBangumi.RecommendCnBean.FootBean>
 
-    val adapters = ArrayList<DelegateAdapter.Adapter<*>>()
+    private val adapters = ArrayList<DelegateAdapter.Adapter<*>>()
 
     private fun initAdapter() {
         virtualLayoutManager = VirtualLayoutManager(mContext)
@@ -129,6 +133,9 @@ class ChaseBangumiFragment : BaseRefreshFragment<ChaseBangumiContract.View, Chas
                         .append("更新至第 " + followsBean.new_ep.index + " 话")
                         .setForegroundColor(AppUtils.getColor(R.color.pink_text_color)).create())
                 holder.setText(R.id.tv_video_state, "尚未观看")
+                holder.itemView.onClick {
+                    startActivity(Intent(mContext,BangumiDetailActivity::class.java))
+                }
             }
         }
         //我的追番内容
@@ -160,6 +167,9 @@ class ChaseBangumiFragment : BaseRefreshFragment<ChaseBangumiContract.View, Chas
                         .setText(R.id.tv_video_title, recommendBean.title)
                         .setText(R.id.tv_video_update, "更新至第" + recommendBean.newest_ep_index + "话")
                         .setVisible(R.id.tv_video_state, false)
+                holder.itemView.onClick {
+                    startActivity(Intent(mContext,BangumiDetailActivity::class.java))
+                }
             }
         }
         adapters.add(jpAdapter)
@@ -215,6 +225,9 @@ class ChaseBangumiFragment : BaseRefreshFragment<ChaseBangumiContract.View, Chas
                         .setText(R.id.tv_video_title, recommendBean.title)
                         .setText(R.id.tv_video_update, "更新至第" + recommendBean.newest_ep_index + "话")
                         .setVisible(R.id.tv_video_state, false)
+                holder.itemView.onClick {
+                    startActivity(Intent(mContext,BangumiDetailActivity::class.java))
+                }
             }
         }
         adapters.add(cnAdapter)

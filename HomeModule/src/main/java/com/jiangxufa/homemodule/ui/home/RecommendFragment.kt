@@ -62,7 +62,8 @@ class RecommendFragment : BaseRefreshFragment<RecommendContract.View, RecommendP
 
     override fun initInject() {
         DaggerHomeComponent.builder()
-                .fragmentComponent(fragmentComponent)
+//                .fragmentComponent(fragmentComponent)
+                .activityComponent(activityComponent)
                 .homeModule(HomeModule())
                 .build().inject(this)
         mPresenter?.attachView(this)

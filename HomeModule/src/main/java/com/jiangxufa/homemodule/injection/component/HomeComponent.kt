@@ -1,9 +1,10 @@
 package com.jiangxufa.homemodule.injection.component
 
 import com.jiangxufa.baselibrary.injection.PerComponentScope
-import com.jiangxufa.baselibrary.injection.component.FragmentComponent
+import com.jiangxufa.baselibrary.injection.component.ActivityComponent
 import com.jiangxufa.homemodule.LiveFragment
 import com.jiangxufa.homemodule.injection.module.HomeModule
+import com.jiangxufa.homemodule.ui.bangumi.BangumiDetailActivity
 import com.jiangxufa.homemodule.ui.home.*
 import dagger.Component
 
@@ -13,7 +14,7 @@ import dagger.Component
  * 功能描述：
  */
 @PerComponentScope
-@Component(dependencies = [FragmentComponent::class], modules = [HomeModule::class])
+@Component(dependencies = [ActivityComponent::class], modules = [HomeModule::class])
 interface HomeComponent {
 
     fun inject(fragment: LiveDataFragment)
@@ -23,4 +24,7 @@ interface HomeComponent {
     fun inject(fragment: RegionFragment)
     fun inject(fragment: DynamicFragment)
     fun inject(fragment: DiscoverFragment)
+
+
+    fun inject(activity: BangumiDetailActivity)
 }

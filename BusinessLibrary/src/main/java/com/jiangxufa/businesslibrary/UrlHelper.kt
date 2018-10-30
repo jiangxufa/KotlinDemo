@@ -23,5 +23,11 @@ class UrlHelper{
         fun getAppUrl():String = "http://app.bilibili.com/"
 
         fun getLiveUrl():String = "http://api.live.bilibili.com/"
+
+        fun getBangumiUrl():String ="https://bangumi.bilibili.com/"
+
+        fun getComonUrl():String ="http://api.bilibili.cn/"
+
+
     }
 }

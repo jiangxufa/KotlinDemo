@@ -21,7 +21,9 @@ import com.jiangxufa.baselibrary.utils.ClipboardUtils
 import com.jiangxufa.baselibrary.utils.StatusBarUtil
 import com.jiangxufa.businesslibrary.router.RouterPath
 import kotlinx.android.synthetic.main.activity_web.*
+import kotlinx.android.synthetic.main.web_layout_loading.*
 import kotlinx.android.synthetic.main.web_toolbar.*
+
 // 在支持路由的页面上添加注解(必选)
 // 这里的路径需要注意的是至少需要有两级，/xx/xx
 @Route(path = RouterPath.WebCenter.PATH_WEB)
@@ -41,6 +43,7 @@ class WebActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var mLoading:View
     private var mTitle: String? = null
     private lateinit var mUrl: String
     private lateinit var mImg: String
@@ -48,9 +51,9 @@ class WebActivity : AppCompatActivity() {
     private val mChromeClient = object : WebChromeClient() {
         override fun onProgressChanged(view: WebView, newProgress: Int) {
             if (newProgress >= 40) {
-                fl_loading.visibility = View.GONE
+                mLoading.visibility = View.GONE
             } else {
-                fl_loading.visibility = View.VISIBLE
+                mLoading.visibility = View.VISIBLE
             }
             webview.settings.blockNetworkImage = false
             super.onProgressChanged(webview, newProgress)
@@ -61,7 +64,7 @@ class WebActivity : AppCompatActivity() {
 
         override fun onPageFinished(webView: WebView, s: String) {
             super.onPageFinished(webView, s)
-            fl_loading.visibility = View.GONE
+            mLoading.visibility = View.GONE
             webView.settings.blockNetworkImage = false
             val h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             val w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
@@ -70,7 +73,7 @@ class WebActivity : AppCompatActivity() {
 
         override fun onReceivedError(webView: WebView, i: Int, s: String, s1: String) {
             super.onReceivedError(webView, i, s, s1)
-            fl_loading.visibility = View.GONE
+            mLoading.visibility = View.GONE
             val errorHtml = "<html><body><h2>找不到网页</h2></body></html>"
             webView.loadDataWithBaseURL(null, errorHtml, "text/html", "UTF-8", null)
         }
@@ -101,6 +104,7 @@ class WebActivity : AppCompatActivity() {
         }
         initWebView()
         StatusBarUtil.setColorNoTranslucent(this, AppUtils.getColor(R.color.colorPrimary))
+        mLoading = pw_loading
     }
 
     @SuppressLint("SetJavaScriptEnabled")

@@ -50,7 +50,8 @@ class DiscoverFragment : BaseFragment<DiscoverContract.View, DiscoverPresenter>(
 
     override fun initInject() {
         DaggerHomeComponent.builder()
-                .fragmentComponent(fragmentComponent)
+//                .fragmentComponent(fragmentComponent)
+                .activityComponent(activityComponent)
                 .homeModule(HomeModule())
                 .build().inject(this)
         mPresenter?.attachView(this)
